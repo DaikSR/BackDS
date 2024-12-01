@@ -3,17 +3,60 @@ export class CartRepository {
     this.model = model;
   }
 
-  async findCartByUserId(userId) {
+  async create(data) {
     try {
-      return await this.model.findOne({ where: { id: id } });
+      return await this.model.create(data);
     } catch (error) {
       return null;
     }
   }
 
-  async findById(id) {
+  async update(data, id) {
     try {
-      return await this.model.findOne({ where: { id: id } });
+      return await this.model.update(data, {
+        where: { id },
+      });
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async findProductByUserId(productId, userId) {
+    try {
+      return await this.model.findAll({
+        where: { user_id: userId, product_id: productId },
+      });
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async incrementQuantity(quantityActual, id) {
+    try {
+      return await this.model.update(
+        { quantity: quantityActual + 1 },
+        {
+          where: { id },
+        }
+      );
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async findCartByUserId(userId) {
+    try {
+      return await this.model.findAll({ where: { user_id: userId } });
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async removeProductFromCart(id) {
+    try {
+      return await this.model.destroy({
+        where: { id: id },
+      });
     } catch (error) {
       return null;
     }

@@ -3,6 +3,8 @@ import { initializeModels } from "./models/index.js";
 import authRoute from "./routes/auth.route.js";
 import seedRoute from "./routes/seed.route.js";
 import cors from "cors";
+import productRoute from "./routes/products.route.js";
+import cartRoute from "./routes/cart.route.js";
 
 const app = express();
 
@@ -13,6 +15,8 @@ app.use(cors());
 
 app.use("/api", authRoute);
 app.use("/api", seedRoute);
+app.use("/api", productRoute);
+app.use("/api", cartRoute);
 
 //
 (async () => {

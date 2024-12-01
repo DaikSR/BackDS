@@ -93,6 +93,23 @@ class AuthController {
       res.status(401).json({ message: "Error en la autenticación" });
     }
   }
+
+  verfyToken(req, res, next) {
+    const token = req.headers.authorization;
+
+    if (token) {
+      const tokenValue = token.split(" ")[1];
+      jwt.verify(tokenValue, "jwt-secret", async (err, decoded) => {
+        if (err) {
+          res.status(401).json({ message: "Error en la autenticación" });
+        } else {
+          next();
+        }
+      });
+    } else {
+      res.status(401).json({ message: "Error en la autenticación" });
+    }
+  }
 }
 
 export const authController = new AuthController();

@@ -20,6 +20,23 @@ const Producto = sequelize.define("producto", {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
+  description: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "",
+  },
+
+  content: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "",
+  },
+
+  detail: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "",
+  },
 });
 
 export default Producto;

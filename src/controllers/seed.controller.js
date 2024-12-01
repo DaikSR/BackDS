@@ -12,6 +12,9 @@ class SeedController {
           image:
             "https://oechsle.vteximg.com.br/arquivos/ids/18269076-998-998/2667355.jpg?v=638550789852100000",
           precio: 1000,
+          description: "",
+          content: "",
+          detail: "",
         },
         {
           titulo: "Licuadora",

@@ -1,28 +1,25 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.config.js";
 
-const Usuario = sequelize.define("usuario", {
+const Orden = sequelize.define("order", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  nombre_completo: {
-    type: DataTypes.STRING,
+  user_id: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
-  correo: {
-    type: DataTypes.STRING,
+  product_ids: {
+    type: DataTypes.ARRAY(DataTypes.INTEGER),
     allowNull: false,
   },
-  contrasena: {
-    type: DataTypes.STRING,
+  payment: {
+    type: DataTypes.BOOLEAN,
     allowNull: false,
-  },
-  role: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    defaultValue: false,
   },
 });
 
-export default Usuario;
+export default Orden;

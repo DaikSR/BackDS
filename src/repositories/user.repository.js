@@ -26,4 +26,14 @@ export class UserRepository {
       return null;
     }
   }
+
+  async update(data, userId) {
+    try {
+      return await this.model.update(data, {
+        where: { id: userId },
+      });
+    } catch (error) {
+      return null;
+    }
+  }
 }

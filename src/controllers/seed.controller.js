@@ -1,7 +1,12 @@
 import models from "../models/index.js";
 import { ProductRepository } from "../repositories/product.repository.js";
+import { UserRepository } from "../repositories/user.repository.js";
 
 const productRepository = new ProductRepository(models.Producto);
+
+const userRepository = new UserRepository(models.Usuario);
+
+import bcrypt from "bcrypt";
 
 class SeedController {
   async seed(req, res) {
@@ -32,6 +37,14 @@ class SeedController {
       products.forEach(async (product) => {
         await productRepository.create(product);
       });
+
+      await userRepository.create({
+        nombre_completo: "Admin",
+        correo: "admin@admin.com",
+        contrasena: bcrypt.hashSync("admin", 10),
+        role: "admin",
+      });
+
       res.status(200).json({ message: "Base de datos inicializada" });
     } catch (error) {
       res

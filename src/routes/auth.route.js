@@ -6,6 +6,8 @@ authRoute.post("/auth/login", authController.login);
 
 authRoute.post("/auth/register", authController.register);
 
+authRoute.post("/auth/update", authController.update);
+
 authRoute.get("/auth/me", authController.me);
 
 export default authRoute;

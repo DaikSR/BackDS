@@ -54,6 +54,7 @@ class AuthController {
             nombre_completo: body.nombre_completo,
             correo: body.email,
             contrasena: hashedPassword,
+            role: "user",
           });
 
           if (newUser) {
@@ -67,6 +68,68 @@ class AuthController {
           } else {
             res.status(500).json({ message: "Error al registrar usuario" });
           }
+        }
+      } else {
+        res.status(400).json({ message: "Faltan datos para el registro" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Error al registrar usuario" });
+    }
+  }
+
+  async update(req, res) {
+    try {
+      const body = req.body;
+
+      let token = req.headers.authorization;
+
+      token = token.split(" ")[1];
+
+      const tokenDecrypt = jwt.verify(token, "jwt-secret");
+
+      const user = await userRepository.findById(tokenDecrypt.id);
+
+      if (body.email && body.nombre_completo) {
+        const newUser = await userRepository.update(
+          {
+            nombre_completo: body.nombre_completo,
+            correo: body.email,
+          },
+          user.id
+        );
+
+        if (newUser) {
+          const token = jwt.sign(
+            {
+              id: newUser.id,
+            },
+            "jwt-secret"
+          );
+          res.status(201).json({ token });
+        } else {
+          res.status(500).json({ message: "Error al registrar usuario" });
+        }
+      } else if (body.email && body.nombre_completo && body.password) {
+        const hashedPassword = bcrypt.hashSync(body.password, 10);
+        const newUser = await userRepository.update(
+          {
+            nombre_completo: body.nombre_completo,
+            correo: body.email,
+            contrasena: hashedPassword,
+          },
+          user.id
+        );
+
+        if (newUser) {
+          const token = jwt.sign(
+            {
+              id: newUser.id,
+            },
+            "jwt-secret"
+          );
+          res.status(201).json({ token });
+        } else {
+          res.status(500).json({ message: "Error al registrar usuario" });
         }
       } else {
         res.status(400).json({ message: "Faltan datos para el registro" });

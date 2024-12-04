@@ -5,6 +5,7 @@ import seedRoute from "./routes/seed.route.js";
 import cors from "cors";
 import productRoute from "./routes/products.route.js";
 import cartRoute from "./routes/cart.route.js";
+import orderRoute from "./routes/order.route.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use("/api", authRoute);
 app.use("/api", seedRoute);
 app.use("/api", productRoute);
 app.use("/api", cartRoute);
+app.use("/api", orderRoute);
 
 //
 (async () => {

@@ -61,4 +61,12 @@ export class CartRepository {
       return null;
     }
   }
+
+  async deleleCart(id) {
+    try {
+      return await this.model.destroy({ where: { id } });
+    } catch (error) {
+      return null;
+    }
+  }
 }

@@ -97,6 +97,37 @@ class ProductController {
       res.status(500).json({ message: "Error al añadir al carrito" });
     }
   }
+
+  async update(req, res) {
+    try {
+      const token = req.headers.authorization;
+      const tokenValue = token.split(" ")[1];
+
+      const user = jwt.verify(tokenValue, "jwt-secret");
+
+      const product = await productRepository.findById(req.params.id);
+
+      if (product) {
+        const newProduct = {
+          ...product,
+          titulo: req.body.titulo,
+          image: req.body.image,
+          precio: req.body.precio,
+          description: req.body.description,
+          content: req.body.content,
+          detail: req.body.detail,
+        };
+
+        await productRepository.update(newProduct, req.params.id);
+
+        res.status(200).json(newProduct);
+      } else {
+        res.status(404).json({ message: "No se encontró el producto" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Error al actualizar el producto" });
+    }
+  }
 }
 
 export const productController = new ProductController();

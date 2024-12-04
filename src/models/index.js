@@ -3,12 +3,14 @@ import sequelize from "../config/database.config.js";
 import Producto from "./product.model.js";
 import Usuario from "./user.model.js";
 import Carrito from "./cart.model.js";
+import Orden from "./order.model.js";
 
 // Añade más modelos si es necesario
 const models = {
   Usuario,
   Producto,
   Carrito,
+  Orden,
 };
 
 const syncDatabase = false;

@@ -11,4 +11,6 @@ productRoute.get(
   productController.addToCart
 );
 
+productRoute.patch("/products/:id", productController.update);
+
 export default productRoute;

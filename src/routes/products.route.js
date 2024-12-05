@@ -11,7 +11,15 @@ productRoute.get(
   productController.addToCart
 );
 
-productRoute.patch("/products/:id", productController.update);
-productRoute.post("/products", productController.create);
+productRoute.patch(
+  "/products/:id",
+  authController.verfyToken,
+  productController.update
+);
+productRoute.post(
+  "/products",
+  authController.verfyToken,
+  productController.create
+);
 
 export default productRoute;

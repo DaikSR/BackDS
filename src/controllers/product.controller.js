@@ -44,14 +44,6 @@ class ProductController {
       const token = req.headers.authorization;
       const tokenValue = token.split(" ")[1];
 
-      // jwt.verify(token, "jwt-secret", async (err, decoded) => {
-      //   if (err) {
-      //     res.status(401).json({ message: "Error en la autenticación" });
-      //   } else {
-      //     user = await userRepository.findById(decoded.id);
-      //   }
-      // });
-
       const user = await jwt.verify(tokenValue, "jwt-secret");
       console.log(user);
 

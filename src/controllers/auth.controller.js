@@ -73,6 +73,7 @@ class AuthController {
         res.status(400).json({ message: "Faltan datos para el registro" });
       }
     } catch (error) {
+      console.log(error);
       res.status(500).json({ message: "Error al registrar usuario" });
     }
   }
@@ -89,7 +90,7 @@ class AuthController {
 
       const user = await userRepository.findById(tokenDecrypt.id);
 
-      if (body.email && body.nombre_completo) {
+      if (body.email && body.nombre_completo && !body.password) {
         const newUser = await userRepository.update(
           {
             nombre_completo: body.nombre_completo,

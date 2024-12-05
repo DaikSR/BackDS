@@ -128,6 +128,30 @@ class ProductController {
       res.status(500).json({ message: "Error al actualizar el producto" });
     }
   }
+
+  async create(req, res) {
+    try {
+      const token = req.headers.authorization;
+      const tokenValue = token.split(" ")[1];
+
+      const user = jwt.verify(tokenValue, "jwt-secret");
+
+      const newProduct = {
+        titulo: req.body.titulo,
+        image: req.body.image,
+        precio: req.body.precio,
+        description: req.body.description,
+        content: req.body.content,
+        detail: req.body.detail,
+      };
+
+      const product = await productRepository.create(newProduct);
+
+      res.status(201).json(product);
+    } catch (error) {
+      res.status(500).json({ message: "Error al crear el producto" });
+    }
+  }
 }
 
 export const productController = new ProductController();

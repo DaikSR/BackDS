@@ -12,5 +12,6 @@ productRoute.get(
 );
 
 productRoute.patch("/products/:id", productController.update);
+productRoute.post("/products", productController.create);
 
 export default productRoute;
